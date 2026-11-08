@@ -1,0 +1,307 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Конструктор установочного промпта</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: form column (modules 1-6) + sticky live prompt panel; stacks on phones */
+:root{
+  --bg:#F3F5F2; --surface:#FFFFFF; --ink:#18231F; --muted:#5B6862; --line:#D9E0DB;
+  --accent:#1F5C4F; --accent-ink:#FFFFFF; --accent-soft:#E2EEE9; --mark:#FFE58A; --mark-ink:#3B3200;
+  --code-bg:#17201D; --code-fg:#E6EFEA; --code-dim:#8FA59C; --ok:#2E7D4F;
+  --f-ui:"Golos Text", "Segoe UI", Roboto, Arial, sans-serif;
+  --f-mono:"JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111816; --surface:#18211E; --ink:#E4ECE8; --muted:#9AAAA3; --line:#2A3632;
+  --accent:#6CC4AC; --accent-ink:#0D1714; --accent-soft:#1E3A33; --mark:#6B5A12; --mark-ink:#FFF1B8;
+  --code-bg:#0B110F; --code-fg:#DCE8E2; --code-dim:#7F958C; --ok:#6CC48F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111816; --surface:#18211E; --ink:#E4ECE8; --muted:#9AAAA3; --line:#2A3632;
+  --accent:#6CC4AC; --accent-ink:#0D1714; --accent-soft:#1E3A33; --mark:#6B5A12; --mark-ink:#FFF1B8;
+  --code-bg:#0B110F; --code-fg:#DCE8E2; --code-dim:#7F958C; --ok:#6CC48F; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.wrap{max-width:1180px;margin:0 auto}
+header{display:flex;flex-direction:column;gap:6px;margin-bottom:22px;max-width:760px}
+h1{font-size:clamp(24px,3.2vw,32px);line-height:1.15;margin:0;font-weight:700;text-wrap:balance;letter-spacing:-.01em}
+.lead{color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:24px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.modules{display:flex;flex-direction:column;gap:14px;min-width:0}
+fieldset{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);margin:0;padding:18px 18px 20px;min-width:0;display:flex;flex-direction:column;gap:14px}
+legend{display:flex;align-items:baseline;gap:10px;padding:0 6px;margin-left:-6px;font-weight:700;font-size:16px}
+legend .n{font-family:var(--f-mono);font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 8px;font-weight:600}
+.who{font-size:12px;color:var(--muted);font-weight:500;margin-left:auto}
+.hint{font-size:13px;color:var(--muted);margin:-6px 0 0}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+label.f,.f{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:600}
+.sub{font-weight:400;color:var(--muted)}
+input[type=text],input[type=number],select,textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%}
+textarea{min-height:76px;resize:vertical;font-family:var(--f-ui)}
+textarea.mono{font-family:var(--f-mono);font-size:13px}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,.chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.chip span{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:13px;font-weight:400;background:var(--bg);cursor:pointer;user-select:none}
+.chip input:checked+span{background:var(--accent-soft);border-color:var(--accent);color:var(--ink);font-weight:600}
+.toggle{display:flex;gap:10px;align-items:flex-start;font-size:14px;font-weight:400}
+.toggle input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.locked{display:flex;flex-direction:column;gap:6px;font-size:14px;background:var(--accent-soft);border-radius:8px;padding:10px 12px}
+.locked b{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+.info{font-size:13px;background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:8px 10px;color:var(--muted)}
+.info b{color:var(--ink);font-weight:600}
+.example{font-size:13px;border-left:3px solid var(--mark);padding:4px 0 4px 10px;color:var(--muted)}
+.example em{font-style:normal;font-family:var(--f-mono);color:var(--ink)}
+.example strong{background:var(--mark);color:var(--mark-ink);padding:0 2px;border-radius:2px}
+.range{display:flex;align-items:center;gap:10px}
+.range input{flex:1;accent-color:var(--accent)}
+.range output{font-family:var(--f-mono);font-weight:600;min-width:2ch;text-align:right}
+aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);display:flex;flex-direction:column;gap:12px;min-width:0}
+@media (max-width:900px){aside{position:static}}
+.panel{background:var(--code-bg);color:var(--code-fg);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.panel-top{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.panel-top .t{font-weight:600;font-size:14px}
+.panel-top .meta{font-family:var(--f-mono);font-size:12px;color:var(--code-dim);margin-left:auto;font-variant-numeric:tabular-nums}
+pre#out{margin:0;padding:14px;font-family:var(--f-mono);font-size:12.5px;line-height:1.55;white-space:pre-wrap;word-break:break-word;max-height:min(62vh,640px);overflow:auto}
+pre#out .h{color:var(--mark);font-weight:600}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+button{font:inherit;font-weight:600;font-size:14px;border-radius:8px;padding:10px 16px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);flex:1;min-width:180px}
+.toast{font-size:13px;color:var(--ok);min-height:1.4em;font-weight:600}
+.steps{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;font-size:13px;color:var(--muted)}
+.steps ol{margin:6px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Конструктор установочного промпта</h1>
+    <p class="lead">Заполните поля, и промпт соберется справа. Скопируйте его и вставьте первым сообщением в новый чат с чат-ботом. Открытые поля можно заполнять по-русски, ошибки не страшны: модель Вас поймет.</p>
+  </header>
+
+  <div class="grid">
+    <form class="modules" id="form" autocomplete="off">
+      <fieldset>
+        <legend><span class="n">1</span>Профиль<span class="who">заполняет студент</span></legend>
+        <div class="row">
+          <label class="f">Уровень
+            <select id="level"><option>A2</option><option selected>B1</option><option>B2</option><option>C1</option></select>
+          </label>
+          <label class="f">Цель обучения
+            <select id="goal">
+              <option value="to write clear business e-mails in English" selected>Писать понятные деловые письма</option>
+              <option value="to talk about my studies and future profession">Рассказывать об учебе и будущей профессии</option>
+              <option value="to prepare for my English exam">Подготовиться к экзамену</option>
+              <option value="to write reports and short texts for my studies">Писать отчеты и короткие тексты по специальности</option>
+              <option value="custom">Своя цель…</option>
+            </select>
+          </label>
+        </div>
+        <label class="f" id="goalCustomWrap" hidden>Своя цель <span class="sub">можно по-русски</span>
+          <input type="text" id="goalCustom" placeholder="например, обсуждать проекты с иностранными коллегами">
+        </label>
+        <div class="f">
+          <span>Трудности <span class="sub">отметьте 1-3</span></span>
+          <div class="chips" id="diff"></div>
+          <input type="text" id="diffCustom" placeholder="Своими словами, можно по-русски: например, «путаю since и for»">
+        </div>
+        <label class="f">Тема сессии <span class="sub">одна сессия – одна тема</span>
+          <input type="text" id="topic" value="переносим встречу с партнером">
+        </label>
+        <p class="hint">Имя, вуз и место работы не указывайте: этот текст увидит сервис модели.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">2</span>Справочный материал<span class="who">заполняет преподаватель</span></legend>
+        <p class="hint">Правило, 2-3 примера и типичные ошибки по каждой изучаемой структуре. Модель опирается на этот текст, когда объясняет.</p>
+        <textarea id="ref" class="mono" rows="6">Past Simple vs Present Perfect. Past Simple for finished time (yesterday, last week, in 2023): "I visited London last year." Present Perfect for experience or result without a finished time: "I have visited London twice."
+Typical mistakes: "I have visited London last year." "We was discuss the contract."
+Articles: "a" for one of many, "the" for something known. "We need a new contract." "The manager called me."</textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">3</span>Исправление ошибок</legend>
+        <div class="f">
+          <span>На какие ошибки обращать особое внимание</span>
+          <div class="chips" id="focus"></div>
+        </div>
+        <label class="f">Сколько ошибок исправлять в одном ответе
+          <span class="range"><input type="range" id="maxCorr" min="1" max="5" value="3"><output id="maxCorrOut">3</output></span>
+        </label>
+        <div class="locked"><b>Всегда включено</b>Сначала исправляет студент. Модель указывает на ошибку и дает подсказку, а правильный вариант приводит, только если студент не справился сам.</div>
+        <div class="example">Студент: <em>I have visited London last year.</em> Модель: <em>Look at the verb. Which tense do we use with "last year"? Try again.</em> Если не получилось: <em>I <strong>visited</strong> London last year.</em></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">4</span>Речь модели</legend>
+        <label class="f">Слова, которые нужно выучить <span class="sub">через запятую</span>
+          <textarea id="words" rows="2">deadline, schedule, to confirm, to postpone, invoice, attachment, to reply, available, request, meeting</textarea>
+        </label>
+        <div class="row">
+          <label class="f">Новых слов в одном ответе (выделяются жирным)
+            <span class="range"><input type="range" id="newWords" min="1" max="7" value="5"><output id="newWordsOut">5</output></span>
+          </label>
+          <label class="f">Сигнал «слишком сложно»
+            <input type="text" id="tooHard" value="too hard">
+          </label>
+        </div>
+        <div class="info" id="explInfo"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">5</span>Авторская ответственность</legend>
+        <div class="locked"><b>Всегда включено</b>Модель не пишет текст за студента, даже если он просит. Помощь идет по порядку: попытка – подсказка – короткий пример.</div>
+        <div class="example">Студент: <em>Write this e-mail for me.</em> Модель: <em>I can’t write it for you, but let’s do it together. What is the main purpose of your e-mail?</em></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">6</span>Ход сессии</legend>
+        <div class="row">
+          <label class="f">Напоминать правила через каждые … сообщений студента
+            <input type="number" id="every" min="3" max="10" value="5">
+          </label>
+          <label class="f">Команда завершения
+            <input type="text" id="endCmd" value="END">
+          </label>
+        </div>
+        <div class="f">
+          <span>В конце сессии показать</span>
+          <label class="toggle"><input type="checkbox" id="sumWords" checked><span>новые слова за сессию</span></label>
+          <label class="toggle"><input type="checkbox" id="sumErr" checked><span>три самые частые ошибки с правильными вариантами</span></label>
+          <label class="toggle"><input type="checkbox" id="sumSelf" checked><span>вопрос для самооценки</span></label>
+        </div>
+      </fieldset>
+    </form>
+
+    <aside>
+      <div class="panel">
+        <div class="panel-top"><span class="t">Установочный промпт</span><span class="meta" id="meta">0 слов</span></div>
+        <pre id="out" aria-live="polite"></pre>
+      </div>
+      <div class="actions">
+        <button type="button" class="primary" id="copy">Скопировать промпт</button>
+        <button type="button" id="reset">Сбросить</button>
+      </div>
+      <div class="toast" id="toast" role="status"></div>
+      <div class="steps">Что дальше
+        <ol>
+          <li>Откройте новый чат в модели из списка преподавателя и вставьте промпт первым сообщением.</li>
+          <li>Одна сессия – одно задание и не больше 10 Ваших сообщений.</li>
+          <li>После сессии выгрузите весь диалог в файл .docx и отправьте преподавателю вместе с итоговым текстом и названием модели.</li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(function(){
+  const DIFF=[
+    ["tenses","путаю Past Simple и Present Perfect","I mix Past Simple and Present Perfect"],
+    ["articles","артикли a / the","I often make mistakes with articles (a / the)"],
+    ["prep","предлоги","I often use the wrong prepositions"],
+    ["order","порядок слов","I make mistakes in word order"],
+    ["cond","условные предложения","I find conditional sentences difficult"],
+    ["modal","модальные глаголы","I am not sure how to use modal verbs"],
+    ["words","не хватает слов","I often do not know the right word"]
+  ];
+  const FOCUS=[["tenses","прошедшие времена","past tenses"],["articles","артикли","articles"],["prep","предлоги","prepositions"],["order","порядок слов","word order"],["cond","условные предложения","conditional sentences"],["modal","модальные глаголы","modal verbs"]];
+  const EXPL={
+    A2:["на русском языке","- Explain grammar rules briefly in Russian."],
+    B1:["на простом английском, а если студент не понял, на русском","- Explain grammar rules in simple English. If I still do not understand, explain in Russian."],
+    B2:["на английском языке","- Explain grammar rules briefly in English."],
+    C1:["на английском языке","- Explain grammar rules briefly in English."]
+  };
+  const $=id=>document.getElementById(id);
+  function chips(host,list,name,checked){
+    host.innerHTML=list.map(([v,ru])=>`<label class="chip"><input type="checkbox" id="${name}-${v}" value="${v}" ${checked.includes(v)?"checked":""}><span>${ru}</span></label>`).join("");
+  }
+  chips($("diff"),DIFF,"d",["tenses","articles"]);
+  chips($("focus"),FOCUS,"fc",["tenses","articles"]);
+
+  const KEY="setup-prompt-builder-v2";
+  const ids=["level","goal","goalCustom","diffCustom","topic","ref","maxCorr","words","newWords","tooHard","every","endCmd","sumWords","sumErr","sumSelf"];
+  function snapshot(){const s={};ids.forEach(i=>{const e=$(i);s[i]=e.type==="checkbox"?e.checked:e.value});
+    s.diff=[...document.querySelectorAll('#diff input:checked')].map(e=>e.value);
+    s.focus=[...document.querySelectorAll('#focus input:checked')].map(e=>e.value);return s}
+  function apply(s){ids.forEach(i=>{if(!(i in s))return;const e=$(i);if(e.type==="checkbox")e.checked=s[i];else e.value=s[i]});
+    document.querySelectorAll('#diff input').forEach(e=>e.checked=(s.diff||[]).includes(e.value));
+    document.querySelectorAll('#focus input').forEach(e=>e.checked=(s.focus||[]).includes(e.value));}
+  const defaults=snapshot();
+  try{const saved=JSON.parse(localStorage.getItem(KEY)||"null");if(saved)apply(saved)}catch(e){}
+
+  const clean=t=>(t||"").trim();
+  function build(){
+    const s=snapshot();
+    $("goalCustomWrap").hidden=s.goal!=="custom";
+    $("maxCorrOut").textContent=s.maxCorr; $("newWordsOut").textContent=s.newWords;
+    const ex=EXPL[s.level]||EXPL.B1;
+    $("explInfo").innerHTML=`Правила модель объясняет <b>${ex[0]}</b>. Язык объяснений выбирается по уровню автоматически.`;
+    const goal=s.goal==="custom"?(clean(s.goalCustom)||"[my goal]"):s.goal;
+    const diffs=DIFF.filter(d=>s.diff.includes(d[0])).map(d=>d[2]);
+    if(clean(s.diffCustom))diffs.push(clean(s.diffCustom));
+    const focus=FOCUS.filter(f=>s.focus.includes(f[0])).map(f=>f[2]);
+    const hard=clean(s.tooHard)||"too hard", end=clean(s.endCmd)||"END";
+    const every=Math.min(10,Math.max(3,parseInt(s.every)||5));
+    const nw=parseInt(s.newWords)||5;
+    const L=[];
+    L.push("You are my English conversation partner and tutor. Please follow these rules for our whole conversation.");
+    L.push("","ABOUT ME");
+    L.push(`- My level: ${s.level} (placement test).`);
+    if(diffs.length)L.push(`- Where I make mistakes: ${diffs.join("; ")}.`);
+    L.push(`- My goal: ${goal}.`);
+    if(clean(s.topic))L.push(`- Topic of this session: ${clean(s.topic)}.`);
+    L.push("- Some of my notes may be in Russian. Do not ask me for my name or other personal information.");
+    L.push("","REFERENCE FROM MY TEACHER");
+    L.push(clean(s.ref)||"[The teacher adds target structures with short rules, examples and typical mistakes here.]");
+    L.push("Use this reference when you correct me or explain a rule.");
+    L.push("","HOW TO TALK TO ME");
+    L.push(`- Use English slightly above my level (${s.level}): clear sentences, not too long.`);
+    if(clean(s.words))L.push(`- Use these target words when they fit naturally and repeat them during our conversation: ${clean(s.words)}.`);
+    L.push(`- In each reply, put up to ${nw} new or useful word${nw===1?"":"s"} or phrase${nw===1?"":"s"} in bold.`);
+    L.push(`- If I write "${hard}", make your next reply simpler.`);
+    L.push(ex[1]);
+    L.push("","HOW TO CORRECT ME");
+    if(focus.length)L.push(`- Focus on these mistakes: ${focus.join(", ")}.`);
+    L.push(`- Correct no more than ${s.maxCorr} mistake${s.maxCorr==="1"?"":"s"} in one reply. Correct only mistakes. Do not rewrite correct sentences to make them sound better.`);
+    L.push("- For my focus mistakes: first show me where the mistake is, give me a hint and let me correct it myself. If I cannot, give me the correct sentence with the corrected part in bold and ask me to write it again.");
+    L.push("- For other mistakes: give me the correct sentence with the corrected part in bold.");
+    L.push("- If I disagree with a correction, do not change it just because I disagree. Explain the rule using the reference from my teacher. If you are not sure, tell me.");
+    L.push("","MY WORK STAYS MINE");
+    L.push("- Never write a text, a paragraph or an answer for me, even if I ask.");
+    L.push("- If I am stuck, help me in this order: (1) ask me to try, (2) give me a hint, (3) only then show a short example.");
+    L.push("- If I ask you to write it for me, remind me of this rule and give me a hint instead.");
+    L.push("","HOW EACH SESSION WORKS");
+    L.push("- Start by asking me about my goal for today.");
+    L.push(`- After every ${every} of my messages, remind me of these rules in one line and check that you still follow them.`);
+    L.push("- This session is for one task only. After about 10 of my messages, help me finish the task and remind me to start a new chat for the next session.");
+    const sum=[];if(s.sumWords)sum.push("a list of today's new words");if(s.sumErr)sum.push("my 3 most frequent mistakes with correct versions");if(s.sumSelf)sum.push("one question to help me assess my progress");
+    if(sum.length)L.push(`- When I write "${end}", give me: ${sum.map((x,i)=>`(${String.fromCharCode(97+i)}) ${x}`).join(", ")}.`);
+    L.push("","If you understand, answer in one sentence and ask about my goal for today.");
+    const text=L.join("\n");
+    const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+    $("out").innerHTML=esc(text).replace(/^(ABOUT ME|REFERENCE FROM MY TEACHER|HOW TO TALK TO ME|HOW TO CORRECT ME|MY WORK STAYS MINE|HOW EACH SESSION WORKS)$/gm,'<span class="h">$1</span>');
+    $("meta").textContent=`${text.split(/\s+/).filter(Boolean).length} слов`;
+    try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}
+    return text;
+  }
+  async function copyText(t,msg){
+    try{await navigator.clipboard.writeText(t);flash(msg)}catch(e){
+      const r=document.createRange();r.selectNodeContents($("out"));
+      const sel=getSelection();sel.removeAllRanges();sel.addRange(r);flash("Текст выделен. Нажмите Ctrl+C (⌘C).");}
+  }
+  let tmr;function flash(m){$("toast").textContent=m;clearTimeout(tmr);tmr=setTimeout(()=>$("toast").textContent="",2800)}
+  $("form").addEventListener("input",build);$("form").addEventListener("change",build);
+  $("form").addEventListener("submit",e=>e.preventDefault());
+  $("copy").addEventListener("click",()=>copyText(build(),"Скопировано. Вставьте промпт первым сообщением в новый чат."));
+  $("reset").addEventListener("click",()=>{apply(defaults);build();flash("Поля сброшены")});
+  build();
+})();
+</script>
+
+</body></html>
