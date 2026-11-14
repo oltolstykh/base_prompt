@@ -157,10 +157,15 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
             </label>
             <label class="f"><span class="lbl" data-i18n="goal"></span>
               <select id="goal">
-                <option value="to write formal letters and e-mails in English" selected data-i18n="gLetter"></option>
-                <option value="to write essays in English" data-i18n="gEssay"></option>
+                <option value="to write opinion essays in English" data-i18n="gOpinion"></option>
+                <option value="to write for-and-against essays in English" data-i18n="gForAgainst"></option>
+                <option value="to write formal letters and e-mails in English" selected data-i18n="gFormal"></option>
+                <option value="to write semi-formal letters and e-mails in English" data-i18n="gSemi"></option>
+                <option value="to write informal letters and e-mails in English" data-i18n="gInformal"></option>
                 <option value="to write reports in English" data-i18n="gReport"></option>
-                <option value="to write summaries of texts in English" data-i18n="gSummary"></option>
+                <option value="to write proposals in English" data-i18n="gProposal"></option>
+                <option value="to write articles in English" data-i18n="gArticle"></option>
+                <option value="to write reviews in English" data-i18n="gReview"></option>
                 <option value="custom" data-i18n="gCustom"></option>
               </select>
             </label>
@@ -181,7 +186,6 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
         <div class="num">2</div>
         <div class="body">
           <div class="mhead"><h2 data-i18n="m2"></h2><span class="who" data-i18n="whoTeacher"></span></div>
-          <p class="note" data-i18n="refHint"></p>
           <textarea id="ref" class="mono" rows="7"></textarea>
         </div>
       </section>
@@ -287,17 +291,18 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
     ru:{
       title:"Конструктор установочного промпта", langGroup:"Язык интерфейса",
       lead:"Заполните первый блок, остальные правила уже настроены. Скопируйте промпт и вставьте его первым сообщением в новый пустой чат. Поля можно заполнять по-русски, ошибки не страшны: модель Вас поймет.",
-      m1:"Задание и профиль", whoStudent:"заполняет студент", whoTeacher:"готовит преподаватель заранее",
-      variant:"Вариант задания", variantSub:"по ссылке преподавателя выбирается сам", variantCustom:"Свое задание",
+      m1:"Задание и профиль", whoStudent:"заполняет студент", whoTeacher:"готовит преподаватель",
+      variant:"Вариант задания", variantSub:"по ссылке преподавателя выбирается сам", variantCustom:"Свое задание", groupT:"Варианты преподавателя", groupB2:"B2 – FCE (B2 First)", groupC1:"C1 – CAE (C1 Advanced)",
       task:"Задание", taskSub:"обязательно", taskPh:"Вставьте задание целиком: кому Вы пишете, зачем и что должно быть в тексте",
       topic:"Тема", topicSub:"одна сессия – одна тема", topicPh:"например, time management and arranging a meeting",
       level:"Уровень", goal:"Цель обучения",
-      gLetter:"Formal letter / деловое письмо", gEssay:"Essay / эссе", gReport:"Report / отчет", gSummary:"Summary / аннотация", gCustom:"Свой вариант…",
+      gOpinion:"Opinion Essay – эссе-мнение", gForAgainst:"For and Against Essay – эссе «за и против»",
+      gFormal:"Formal Letter / Email – официальное письмо", gSemi:"Semi-formal Letter / Email – полуофициальное письмо", gInformal:"Informal Letter / Email – неофициальное письмо",
+      gReport:"Report – отчет", gProposal:"Proposal – предложение", gArticle:"Article – статья", gReview:"Review – отзыв", gCustom:"Свой вариант…",
       goalCustom:"Своя цель", goalCustomSub:"можно по-русски", goalCustomPh:"например, писать отзывы на статьи",
       diff:"Трудности", diffSub:"отметьте 1-3", diffPh:"Своими словами, можно по-русски: например, «путаю since и for»",
       privacy:"Имя, вуз и место работы не указывайте: этот текст увидит сервис модели.",
       m2:"Справочный материал",
-      refHint:"Преподаватель не видит чат, поэтому все, на что модель должна опираться в объяснениях, он готовит заранее: правило, 2-3 примера и типичные ошибки. По ссылке варианта текст подставляется сам, студенту его менять не нужно.",
       m3:"Исправление ошибок", focus:"На какие ошибки обращать особое внимание", maxCorr:"Сколько ошибок исправлять в одном ответе",
       always:"Всегда включено",
       lockCorr:"Сначала исправляет студент. Модель указывает на ошибку и дает подсказку без правильного варианта, а правильный вариант приводит, только если студент не справился сам. Правильные предложения модель не переписывает и стилистических советов к ним не дает.",
@@ -326,17 +331,18 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
     en:{
       title:"Setup Prompt Builder", langGroup:"Interface language",
       lead:"Fill in the first block; the other rules are already set. Copy the prompt and paste it as the first message in a new empty chat. You can write in Russian, and mistakes are fine: the model will understand you.",
-      m1:"Task and profile", whoStudent:"filled in by the student", whoTeacher:"prepared by the teacher in advance",
-      variant:"Task variant", variantSub:"selected automatically from your teacher’s link", variantCustom:"My own task",
+      m1:"Task and profile", whoStudent:"filled in by the student", whoTeacher:"prepared by the teacher",
+      variant:"Task variant", variantSub:"selected automatically from your teacher’s link", variantCustom:"My own task", groupT:"Teacher’s variants", groupB2:"B2 – FCE (B2 First)", groupC1:"C1 – CAE (C1 Advanced)",
       task:"Task", taskSub:"required", taskPh:"Paste the whole task: who you are writing to, why, and what the text must include",
       topic:"Topic", topicSub:"one session – one topic", topicPh:"e.g. time management and arranging a meeting",
       level:"Level", goal:"Learning goal",
-      gLetter:"Formal letter / e-mail", gEssay:"Essay", gReport:"Report", gSummary:"Summary", gCustom:"Other…",
+      gOpinion:"Opinion Essay", gForAgainst:"For and Against Essay",
+      gFormal:"Formal Letter / Email", gSemi:"Semi-formal Letter / Email", gInformal:"Informal Letter / Email",
+      gReport:"Report", gProposal:"Proposal", gArticle:"Article", gReview:"Review", gCustom:"Other…",
       goalCustom:"Your goal", goalCustomSub:"Russian is fine", goalCustomPh:"e.g. write reviews of articles",
       diff:"Difficulties", diffSub:"choose 1-3", diffPh:"In your own words (Russian is fine), e.g. “I mix up since and for”",
       privacy:"Do not include your name, university or workplace: the model’s service will see this text.",
       m2:"Reference material",
-      refHint:"The teacher does not see the chat, so everything the model should rely on when it explains is prepared in advance: a rule, 2-3 examples and typical mistakes. The teacher’s variant link fills this in; students do not need to change it.",
       m3:"Error correction", focus:"Which mistakes to focus on", maxCorr:"How many mistakes to correct in one reply",
       always:"Always on",
       lockCorr:"The student corrects first. The model points to the mistake and gives a hint without the correct form; it gives the correct version only if the student cannot fix it. The model does not rewrite correct sentences or give style tips for them.",
@@ -372,6 +378,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
     ["cond",{ru:["Conditionals","условные предложения"],en:["Conditionals"]},"I find conditional sentences difficult"],
     ["order",{ru:["Word order","порядок слов"],en:["Word order"]},"I make mistakes in word order"],
     ["modal",{ru:["Modal verbs","модальные глаголы"],en:["Modal verbs"]},"I am not sure how to use modal verbs"],
+    ["reported",{ru:["Reported speech","косвенная речь"],en:["Reported speech"]},"I make mistakes in reported speech"],
     ["vocab",{ru:["Poor vocabulary","бедный словарный запас"],en:["Poor vocabulary"]},"my vocabulary is poor, and I often do not know the right word"]
   ];
   const FOCUS=[
@@ -381,6 +388,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
     ["cond",{ru:["Conditionals","условные предложения"],en:["Conditionals"]},"conditional sentences"],
     ["order",{ru:["Word order","порядок слов"],en:["Word order"]},"word order"],
     ["modal",{ru:["Modal verbs","модальные глаголы"],en:["Modal verbs"]},"modal verbs"],
+    ["reported",{ru:["Reported speech","косвенная речь"],en:["Reported speech"]},"reported speech"],
     ["vocab",{ru:["Vocabulary","лексика"],en:["Vocabulary"]},"vocabulary (word choice)"]
   ];
   const EXPL={
@@ -390,28 +398,98 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
     C1:"- Explain grammar rules briefly in English."
   };
 
-  const REF_DEFAULT='Past Simple vs Present Perfect. Past Simple for finished time (yesterday, last week, in 2023): "I visited London last year." Present Perfect for experience or result without a finished time: "I have visited London twice."\nTypical mistakes: "I have visited London last year." "We was discuss the contract."\nArticles: "a" for one of many, "the" for something known. "We need a new contract." "The manager called me."';
+  /* Цели обучения (значения поля «Цель обучения») */
+  const G={
+    opinion:"to write opinion essays in English", forAgainst:"to write for-and-against essays in English",
+    formal:"to write formal letters and e-mails in English", semi:"to write semi-formal letters and e-mails in English",
+    informal:"to write informal letters and e-mails in English", report:"to write reports in English",
+    proposal:"to write proposals in English", article:"to write articles in English", review:"to write reviews in English"
+  };
 
   /* Варианты задания. Преподаватель может изменить или дополнить список.
-     Ссылка ...?v=1 открывает конструктор с вариантом 1; ...?v=1&lang=en – с английским интерфейсом. */
+     group: t – варианты преподавателя, b2 – формат FCE (B2 First), c1 – формат CAE (C1 Advanced).
+     Вариант подставляет тему, задание, слова, цель, фокус исправления и (если указан) уровень.
+     Ссылка ...?v=1 открывает конструктор с вариантом 1; ...?v=fce1&lang=en – с вариантом fce1 и английским интерфейсом. */
   const VARIANTS={
-    "1":{label:{ru:"Вариант 1. Time management",en:"Variant 1. Time management"},
+    "1":{group:"t",label:{ru:"Вариант 1. Time management",en:"Variant 1. Time management"},
       topic:"time management, corporate training and arranging a meeting",
       task:"Write a formal e-mail to a business trainer, Mr. / Ms. Carter, inviting them to conduct a workshop.\nIn your e-mail, you must:\n• Introduce yourself and state the purpose of your e-mail (a workshop for 15 team members).\n• Suggest two possible dates next month and ask about their availability.\n• Ask if they can include practical exercises on specific techniques (e.g., the Eisenhower Matrix, the Pomodoro technique, or time blocking).\n• Inquire about their pricing and payment terms.",
       words:"prioritize, workload, schedule, delegate, time blocking, Eisenhower Matrix, Pomodoro technique",
-      goal:"to write formal letters and e-mails in English",
-      focus:["modal","cond"],
-      ref:'Modal verbs for polite requests: could / would / may + base verb (no "to"). "Could you send us your price list?" "Would you be available on 12 May?" "May I ask about your fees?"\nTypical mistakes: "Could you to send us…" "Would you can come…"\nFirst conditional for a real future situation: If + Present Simple, will + verb. "If you are not available, we will suggest another date."\nTypical mistake: "If you will be available, we will meet."'},
-    "2":{label:{ru:"Вариант 2. Land tenure",en:"Variant 2. Land tenure"},
+      goal:G.formal, focus:["modal","cond"]},
+    "2":{group:"t",label:{ru:"Вариант 2. Land tenure",en:"Variant 2. Land tenure"},
       topic:"land tenure, municipal property and lease extension",
       task:"Background: You work in a municipal department of state property management. You need to contact a commercial organization that rents a municipal land plot for storage facilities.\nWrite a formal e-mail to the commercial tenant, Mr. / Ms. Sterling, regarding their current lease.\nIn your e-mail, you must:\n• Remind the tenant that their current land tenure agreement expires in exactly three months.\n• Explain the procedure for a lease extension (they must provide an updated zoning plan and proof of appropriate land use).\n• Set a clear deadline for document submission.\n• Propose a short meeting next week to discuss possible changes to the rent rate.",
       words:"land tenure agreement, lease extension, land boundaries, tenure rights, zoning regulations, deadline",
-      goal:"to write formal letters and e-mails in English",
-      ref:REF_DEFAULT}
+      goal:G.formal},
+
+    /* ---------- B2 – FCE (B2 First): 140-190 слов ---------- */
+    "fce1":{group:"b2",level:"B2",label:{ru:"Opinion Essay. Интернет и учеба",en:"Opinion Essay. The internet and studying"},
+      topic:"students, the internet and independent learning",
+      task:`FCE (B2 First), Writing Part 1. Write 140-190 words.\nIn your English class you have been talking about how students learn. Now your teacher has asked you to write an essay.\nWrite an essay using all the notes and give reasons for your point of view.\n\nStudents today rely too much on the internet when they study. Do you agree?\n\nNotes. Write about:\n1. finding information quickly\n2. developing your own ideas\n3. ........ (your own idea)`,
+      words:"rely on, reliable, source, to look up, critical thinking, in my view, on the other hand",
+      goal:G.opinion, focus:["articles","verbals"]},
+    "fce2":{group:"b2",level:"B2",label:{ru:"For and Against Essay. Онлайн или в аудитории",en:"For and Against Essay. Online or in class"},
+      topic:"online learning and classroom learning",
+      task:`FCE (B2 First), Writing Part 1. Write 140-190 words.\nYour teacher has asked you to write an essay that looks at both sides of the question.\n\nDoes online learning have more advantages than disadvantages compared with learning in a classroom?\n\nNotes. Write about:\n1. cost and convenience\n2. contact with teachers and classmates\n3. ........ (your own idea)\n\nGive arguments for and against and finish with your own conclusion.`,
+      words:"flexible, convenient, distraction, face-to-face, motivation, however, to sum up",
+      goal:G.forAgainst, focus:["articles","cond"]},
+    "fce3":{group:"b2",level:"B2",label:{ru:"Informal Email. Приезд друга",en:"Informal Email. A friend's visit"},
+      topic:"a friend's weekend visit to your town",
+      task:`FCE (B2 First), Writing Part 2. Write 140-190 words.\nYou have received this email from your English-speaking friend Sam:\n\n"I'm coming to your town for a weekend next month! What should I see and do there? What kind of weather should I expect, and what clothes should I bring? And can we meet up while I'm there?"\n\nWrite your email to Sam.`,
+      words:"can't wait, sightseeing, local, it's worth visiting, make sure, to pack, let me know",
+      goal:G.informal, focus:["tenses","modal"]},
+    "fce4":{group:"b2",level:"B2",label:{ru:"Article. Как отдохнуть после недели",en:"Article. Relaxing after a busy week"},
+      topic:"free time and relaxation",
+      task:`FCE (B2 First), Writing Part 2. Write 140-190 words.\nYou see this announcement on an English-language website for students:\n\nARTICLES WANTED\nHow do you relax after a busy week?\nWhat do you do to relax? Why does it help you? Would you recommend it to other students?\nThe best articles will be published on our website.\n\nWrite your article.`,
+      words:"stressful, to unwind, to recharge, peaceful, to clear your head, I'd highly recommend, give it a try",
+      goal:G.article, focus:["tenses","vocab"]},
+    "fce5":{group:"b2",level:"B2",label:{ru:"Review. Приложение для учебы",en:"Review. A study app"},
+      topic:"a mobile app for studying",
+      task:`FCE (B2 First), Writing Part 2. Write 140-190 words.\nYou see this notice in your college magazine:\n\nREVIEWS WANTED: APPS FOR STUDENTS\nHave you used an app that helps you with your studies? Write a review of it. Tell us what the app does, what you like and dislike about it, and whether you would recommend it to other students.\n\nWrite your review.`,
+      words:"user-friendly, feature, to keep track of, drawback, worth downloading, overall",
+      goal:G.review, focus:["verbals","vocab"]},
+    "fce6":{group:"b2",level:"B2",label:{ru:"Report. Студенческая столовая",en:"Report. The college canteen"},
+      topic:"the student canteen",
+      task:`FCE (B2 First), Writing Part 2. Write 140-190 words.\nThe director of your college wants to improve the student canteen and has asked you to write a report.\nIn your report, you should describe what the canteen is like now, say what students think about it and suggest how it could be improved.\n\nWrite your report.`,
+      words:"the aim of this report, a wide range of, affordable, the majority of students, to recommend, in conclusion",
+      goal:G.report, focus:["modal","reported"]},
+
+    /* ---------- C1 – CAE (C1 Advanced): 220-260 слов ---------- */
+    "cae1":{group:"c1",level:"C1",label:{ru:"Essay. Транспорт в городе",en:"Essay. Traffic in cities"},
+      topic:"reducing traffic in city centres",
+      task:`CAE (C1 Advanced), Writing Part 1. Write 220-260 words.\nYour class has attended a panel discussion on what local authorities can do to reduce traffic in city centres. You have made the notes below.\n\nWays to reduce traffic in city centres:\n• better public transport\n• safe cycle lanes\n• charges for driving into the centre\n\nSome opinions expressed in the discussion:\n"Nobody will leave their car at home if buses are unreliable."\n"Cycling is only an option when the weather is good."\n"People will simply pay the charge and keep driving."\n\nWrite an essay for your tutor discussing two of the ways in your notes. You should explain which way you think would be more effective, giving reasons to support your answer.\nYou may, if you wish, make use of the opinions expressed in the discussion, but you should use your own words as far as possible.`,
+      words:"congestion, to alleviate, commuter, infrastructure, to discourage, it could be argued that, consequently",
+      goal:G.opinion, focus:["verbals","cond"]},
+    "cae2":{group:"c1",level:"C1",label:{ru:"Formal Letter. Часы работы библиотеки",en:"Formal Letter. Library opening hours"},
+      topic:"changes to library opening hours",
+      task:`CAE (C1 Advanced), Writing Part 2. Write 220-260 words.\nThe city library where you often study has announced that it will reduce its opening hours and close its reading room at weekends. You decide to write a letter to the library director.\nIn your letter, explain how these changes will affect you and other users, and suggest alternative ways in which the library could save money.\n\nWrite your letter.`,
+      words:"I am writing to express my concern, to be affected by, facilities, to be in a position to, alternatively, I would be grateful if",
+      goal:G.formal, focus:["modal","cond"]},
+    "cae3":{group:"c1",level:"C1",label:{ru:"Semi-formal Email. Совет бывшего преподавателя",en:"Semi-formal Email. Asking a former teacher"},
+      topic:"applying for a master's programme abroad",
+      task:`CAE (C1 Advanced), Writing Part 2. Write 220-260 words.\nYou are planning to apply for a master's programme abroad. Write an email to a former teacher of yours, Ms. / Mr. Hughes, whom you know quite well.\nIn your email, tell your teacher about your plans, explain why you have chosen this programme, ask for advice about the application and ask whether they could write a reference for you.\n\nWrite your email.`,
+      words:"it's been a while, I was wondering if, to apply for, application, reference, I'd really appreciate it",
+      goal:G.semi, focus:["tenses","verbals"]},
+    "cae4":{group:"c1",level:"C1",label:{ru:"Proposal. Пространство для студентов",en:"Proposal. A space for students"},
+      topic:"using an unused space at the university",
+      task:`CAE (C1 Advanced), Writing Part 2. Write 220-260 words.\nYour university has some unused space, and the management is considering how to use it. They have invited students to send proposals.\nWrite a proposal explaining what facility you think should be created in this space, how it would benefit students and what would be needed to make it a success.\n\nWrite your proposal.`,
+      words:"to propose, facility, to benefit, a significant number of, to ensure, it is recommended that, feasible",
+      goal:G.proposal, focus:["modal","cond"]},
+    "cae5":{group:"c1",level:"C1",label:{ru:"Report. Курс повышения квалификации",en:"Report. A training course"},
+      topic:"a professional training course",
+      task:`CAE (C1 Advanced), Writing Part 2. Write 220-260 words.\nYou recently attended a two-day training course paid for by your employer. Your manager has asked you to write a report on the course.\nIn your report, you should describe what the course covered, evaluate how useful it was for your work and recommend whether other employees should attend it in future.\n\nWrite your report.`,
+      words:"to cover, hands-on, relevant, to evaluate, the trainer pointed out that, on the whole, to recommend",
+      goal:G.report, focus:["reported","tenses"]},
+    "cae6":{group:"c1",level:"C1",label:{ru:"Review. Научно-популярная книга",en:"Review. A non-fiction book"},
+      topic:"a non-fiction book about the modern world",
+      task:`CAE (C1 Advanced), Writing Part 2. Write 220-260 words.\nAn international website for readers is collecting reviews of non-fiction books that help people understand the modern world. Write a review of a book you have read.\nYou should explain what the book is about, comment on how well the author presents the ideas and say who would benefit most from reading it.\n\nWrite your review.`,
+      words:"thought-provoking, accessible, to shed light on, compelling, to appeal to, a must-read",
+      goal:G.review, focus:["verbals","vocab"]}
   };
+  const GROUPS=[["t","groupT"],["b2","groupB2"],["c1","groupC1"]];
 
   const $=id=>document.getElementById(id);
-  const KEY="setup-prompt-builder-v4", LKEY="setup-prompt-builder-lang";
+  const KEY="setup-prompt-builder-v5", LKEY="setup-prompt-builder-lang";
   const urlP=new URLSearchParams(location.search);
   let lang="ru";
   try{const l=localStorage.getItem(LKEY);if(l&&T[l])lang=l}catch(e){}
@@ -422,8 +500,11 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
     host.innerHTML=list.map(([v,lab])=>`<label class="chip"><input type="checkbox" id="${name}-${v}" value="${v}" ${checked.includes(v)?"checked":""}><span>${chipLabel(lab)}</span></label>`).join("");
   }
   function variantOptions(){
-    const cur=$("variant").value;
-    $("variant").innerHTML=`<option value="">${T[lang].variantCustom}</option>`+Object.entries(VARIANTS).map(([k,v])=>`<option value="${k}">${v.label[lang]}</option>`).join("");
+    const cur=$("variant").value, t=T[lang];
+    $("variant").innerHTML=`<option value="">${t.variantCustom}</option>`+GROUPS.map(([g,key])=>{
+      const items=Object.entries(VARIANTS).filter(([,v])=>v.group===g);
+      return items.length?`<optgroup label="${t[key]}">`+items.map(([k,v])=>`<option value="${k}">${v.label[lang]}</option>`).join("")+"</optgroup>":"";
+    }).join("");
     $("variant").value=cur||"";
   }
   const checkedOf=host=>[...document.querySelectorAll(`#${host} input:checked`)].map(e=>e.value);
@@ -442,7 +523,6 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
   }
 
   // Значения по умолчанию
-  $("ref").value=REF_DEFAULT;
   chips($("diff"),DIFF,"d",["tenses","articles"]);
   chips($("focus"),FOCUS,"fc",["tenses","articles"]);
   variantOptions();
@@ -457,7 +537,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
   function useVariant(k){const v=VARIANTS[k];if(!v)return;
     $("topic").value=v.topic; $("task").value=v.task; $("words").value=v.words;
     if(v.goal)$("goal").value=v.goal;
-    $("ref").value=v.ref||REF_DEFAULT;
+    if(v.level)$("level").value=v.level;
     const fc=v.focus||defaults.focus;
     document.querySelectorAll('#focus input').forEach(e=>e.checked=fc.includes(e.value));}
   try{const saved=JSON.parse(localStorage.getItem(KEY)||"null");if(saved)apply(saved)}catch(e){}
@@ -490,9 +570,12 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
     L.push(clean(s.task)||"[Paste the task from your teacher here.]");
     if(clean(s.words))L.push(`Words I should use in my text: ${clean(s.words)}.`);
     L.push("I must write this text myself. This is the only task of this session, so do not ask me what I want to do today.");
-    L.push("","REFERENCE FROM MY TEACHER");
-    L.push(clean(s.ref)||"[The teacher adds target structures with short rules, examples and typical mistakes here.]");
-    L.push("Use this reference when you correct me or explain a rule.");
+    const ref=clean(s.ref);
+    if(ref){
+      L.push("","REFERENCE FROM MY TEACHER");
+      L.push(ref);
+      L.push("Use this reference when you correct me or explain a rule.");
+    }
     L.push("","HOW TO TALK TO ME");
     L.push(`- Use English slightly above my level (${s.level}): clear sentences, not too long.`);
     if(clean(s.words))L.push("- Use the words from my task in your replies when they fit naturally. If I have not used some of them yet, remind me which ones, but do not write sentences with them for me.");
@@ -505,7 +588,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
     L.push("- Correct only mistakes. Do not rewrite correct sentences and do not give style tips for them.");
     L.push("- For my focus mistakes: first show me where the mistake is and give me a hint. The hint must not contain the correct form. Bad hint: \"Use at, not in.\" Good hint: \"Check the preposition before the time.\" If I cannot correct it after the hint, give me the correct sentence with the corrected part in bold and ask me to write it again.");
     L.push("- For other mistakes: give me the correct sentence with the corrected part in bold.");
-    L.push("- If I disagree with a correction, do not change it just because I disagree. Explain the rule using the reference from my teacher. If you are not sure, tell me.");
+    L.push(`- If I disagree with a correction, do not change it just because I disagree. Explain the rule${ref?" using the reference from my teacher":""}. If you are not sure, tell me.`);
     L.push("","MY WORK STAYS MINE");
     L.push("- Never write the text, a paragraph, a sentence or an answer for me, even if I ask. This applies to any task I bring into this chat, including exercises and screenshots.");
     L.push("- Do not give me ready sentences, lists of phrases or ideas that I can copy. Ask me questions instead.");
@@ -556,7 +639,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:var(--a
   $("form").addEventListener("submit",e=>e.preventDefault());
   $("copy").addEventListener("click",doCopy);
   $("copy2").addEventListener("click",doCopy);
-  $("reset").addEventListener("click",()=>{apply(defaults);$("ref").value=REF_DEFAULT;build();flash(T[lang].resetDone,false,true)});
+  $("reset").addEventListener("click",()=>{apply(defaults);build();flash(T[lang].resetDone,false,true)});
   document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>{
     lang=b.dataset.lang; try{localStorage.setItem(LKEY,lang)}catch(e){}
     applyLang(); build(); clearTimeout(tmr); $("toast").textContent=""; $("copy2").textContent=T[lang].copy;
